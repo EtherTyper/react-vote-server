@@ -83,6 +83,7 @@ app.get('/reset', function (req, res) {
         res.status(404).end();
     } else {
         global.votes = {};
+        res.send('Reset successful.');
     }
 })
 
