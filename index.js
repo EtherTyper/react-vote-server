@@ -5,6 +5,7 @@ const app = express();
 const url = require('url');
 
 app.set('port', (process.env.PORT || 5000));
+const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
 
 global.votes = process.env.PRODUCTION ? {} : {
     president: {
@@ -78,7 +79,7 @@ app.get('/winner', function (req, res) {
 });
 
 app.get('/reset', function (req, res) {
-    if (md5(req.query.password) !== 'd95408eb72112b35ac5e208fdc1309f3') {
+    if (md5(req.query.password) !== masterKey) {
         res.status(404).end();
     } else {
         global.votes = {};
@@ -87,7 +88,7 @@ app.get('/reset', function (req, res) {
 
 // Debugging/spam-prevention method.
 app.get('/illuminacho_portal', function (req, res) {
-    if (md5(req.query.password) !== 'd95408eb72112b35ac5e208fdc1309f3') {
+    if (md5(req.query.password) !== masterKey) {
         res.status(404).end();
     } else {
         console.log(global.votes);

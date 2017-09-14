@@ -3,5 +3,8 @@
     "blueimp-md5": "^2.10.0",
     "caritat": "^0.0.4",
     "express": "^4.15.4"
+  },
+  "engines": {
+    "node": "8.5.0"
   }
 }
