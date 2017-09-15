@@ -45,6 +45,8 @@ app.get('/vote', function (req, res) {
 
     if (global.locked.includes(req.query.role)) {
         res.send(`${req.query.role} voting is locked.`);
+
+        return;
     }
 
     global.votes = {
@@ -55,7 +57,7 @@ app.get('/vote', function (req, res) {
         }
     };
 
-    res.send(global.votes[req.query.role[req.query.voter]]);
+    res.send('Voting successful.');
 });
 
 app.delete('/vote', function (req, res) {
@@ -87,7 +89,7 @@ app.get('/winner', function (req, res) {
 });
 
 app.get('/locked', function (req, res) {
-    
+    return global.locked.includes(req.query.role);
 });
 
 app.get('/lock', function (req, res) {
@@ -105,6 +107,7 @@ app.get('/reset', function (req, res) {
         res.status(401).end();
     } else {
         global.votes = {};
+        
         res.send('Reset successful.');
     }
 });
