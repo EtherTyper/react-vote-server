@@ -7,7 +7,7 @@ const url = require('url');
 
 app.set('port', (process.env.PORT || 5000));
 const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
-app.use(cors({ origin: '*' }))
+app.use('*', cors())
 
 global.votes = process.env.PRODUCTION ? {} : {
     president: {
