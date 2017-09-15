@@ -6,14 +6,6 @@ const app = express();
 app.set('port', (process.env.PORT || 5000));
 const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", '*');
-    res.header("Access-Control-Allow-Credentials", true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-    next();
-});
-
 global.votes = process.env.PRODUCTION ? {} : {
     president: {
         some: [
