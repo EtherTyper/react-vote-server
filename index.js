@@ -8,7 +8,9 @@ const url = require('url');
 app.set('port', (process.env.PORT || 5000));
 const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
 app.use(cors({
-    origin: () => true
+    origin: (origin, callback) => {
+        callback(undefined, true)
+    }
 }))
 
 global.votes = process.env.PRODUCTION ? {} : {
