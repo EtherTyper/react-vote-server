@@ -7,7 +7,7 @@ const url = require('url');
 
 app.set('port', (process.env.PORT || 5000));
 const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
-app.use(cors({ origin: process.env.PRODUCTION ? 'http://127.0.0.1:3000/' : 'https://react-vote.herokuapp.com/'}))
+app.use(cors({ origin: process.env.PRODUCTION ? 'https://react-vote.herokuapp.com/' : 'http://127.0.0.1:3000/'}))
 
 global.votes = process.env.PRODUCTION ? {} : {
     president: {
