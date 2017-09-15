@@ -1,15 +1,18 @@
 const express = require('express');
 const { Election, irv } = require('caritat');
-const cors = require('cors');
 const md5 = require('blueimp-md5');
 const app = express();
-const url = require('url');
 
 app.set('port', (process.env.PORT || 5000));
 const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
-app.use(cors({
-    origin: false
-}))
+
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", '*');
+    res.header("Access-Control-Allow-Credentials", true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+    next();
+});
 
 global.votes = process.env.PRODUCTION ? {} : {
     president: {
@@ -127,4 +130,3 @@ app.get('/illuminacho_portal', function (req, res) {
 app.listen(app.get('port'), function() {
     console.log('Node app is running on port', app.get('port'));
 });
-
