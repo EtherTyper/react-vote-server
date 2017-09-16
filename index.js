@@ -1,9 +1,11 @@
 const express = require('express');
 const { Election, irv } = require('caritat');
+const cors = require('cors');
 const md5 = require('blueimp-md5');
 const app = express();
 
 app.set('port', (process.env.PORT || 5000));
+app.use(cors())
 const masterKey = 'd95408eb72112b35ac5e208fdc1309f3';
 
 global.votes = process.env.PRODUCTION ? {} : {
@@ -65,6 +67,8 @@ app.delete('/vote', function (req, res) {
 app.get('/winner', function (req, res) {
     const votes = global.votes[req.query.role];
     const candidates = new Set();
+
+    console.log(global.votes);
 
     for (let voter in votes) {
         for (let candidate of votes[voter]) {
