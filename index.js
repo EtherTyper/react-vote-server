@@ -109,6 +109,7 @@ app.get('/reset', function (req, res) {
         res.status(401).end();
     } else {
         global.votes = {};
+        global.locked = [];
 
         res.send('Reset successful.');
     }
