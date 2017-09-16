@@ -43,6 +43,7 @@ app.get('/vote', function (req, res) {
     console.log(req.query);
 
     if (global.locked.includes(req.query.role)) {
+        console.log('locked');
         res.send(`${req.query.role} voting is locked.`);
 
         return;
@@ -90,7 +91,7 @@ app.get('/winner', function (req, res) {
 });
 
 app.get('/locked', function (req, res) {
-    return global.locked.includes(req.query.role);
+    res.send(global.locked.includes(req.query.role).toString());
 });
 
 app.get('/lock', function (req, res) {
@@ -99,7 +100,7 @@ app.get('/lock', function (req, res) {
     } else {
         global.locked.push(req.query.role);
 
-        res.send(`Locked ${role}`);
+        res.send(`Locked ${req.query.role}`);
     }
 });
 
