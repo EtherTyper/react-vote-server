@@ -40,10 +40,7 @@ global.votes = process.env.PRODUCTION ? {} : {
 global.locked = [];
 
 app.get('/vote', function (req, res) {
-    console.log(req.query);
-
     if (global.locked.includes(req.query.role)) {
-        console.log('locked');
         res.send(`${req.query.role} voting is locked.`);
 
         return;
@@ -69,16 +66,16 @@ app.get('/winner', function (req, res) {
     const votes = global.votes[req.query.role];
     const candidates = new Set();
 
-    if (!votes) {
-        res.send('No votes.');
-
-        return;
-    }
-
     for (let voter in votes) {
         for (let candidate of votes[voter]) {
             candidates.add(candidate);
         }
+    }
+
+    if (candidates.size === 0) {
+        res.send('No votes.');
+
+        return;
     }
 
     let election = new Election({
