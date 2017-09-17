@@ -69,7 +69,11 @@ app.get('/winner', function (req, res) {
     const votes = global.votes[req.query.role];
     const candidates = new Set();
 
-    console.log(global.votes);
+    if (!votes) {
+        res.send('No votes.');
+
+        return;
+    }
 
     for (let voter in votes) {
         for (let candidate of votes[voter]) {
@@ -84,8 +88,6 @@ app.get('/winner', function (req, res) {
     for (let voter in votes) {
         election.addBallot(votes[voter]);
     }
-
-    console.log(irv(election));
 
     res.send(irv(election));
 });
